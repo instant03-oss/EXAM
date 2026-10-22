@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Competitive Programming Practicals - Interactive Lab Manual & Code Repository</title>
+  <meta name="description" content="Interactive static site for Competitive Programming Lab Practicals (1.1 to 7.2) covering Bit Manipulation, Stacks, Dynamic Programming, Graphs, and Backtracking.">
+  <meta name="keywords" content="Competitive Programming, Data Structures, Algorithms, LeetCode Solutions, C++, Java, DP, Graph">
+  <meta name="theme-color" content="#090d16">
+
+  <!-- OpenGraph Meta Tags for Social Sharing & GitHub Preview -->
+  <meta property="og:title" content="Competitive Programming Practicals - Interactive Solutions">
+  <meta property="og:description" content="Interactive lab manual with verified code solutions, complexity analysis, and live algorithm trace runner.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Animated Ambient Glow Elements -->
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="ambient-orb ambient-orb-1"></div>
+    <div class="ambient-orb ambient-orb-2"></div>
+    <div class="ambient-orb ambient-orb-3"></div>
+  </div>
+
+  <!-- Main Navigation Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <a href="#" class="brand-section">
+        <div class="brand-logo">CP</div>
+        <div class="brand-title-wrap">
+          <h1>CP Practicals Manual</h1>
+          <p>Lab Solutions & Algorithmic Playground</p>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <!-- Download PDF Link -->
+        <a href="CP Practicals.pdf" download="CP_Practicals.pdf" class="btn btn-ghost" title="Download original PDF document">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span>PDF Manual</span>
+        </a>
+
+        <!-- GitHub Repository Button -->
+        <a href="https://github.com/JitenPanchal" target="_blank" rel="noopener noreferrer" class="btn btn-primary" title="View Source on GitHub">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          <span>GitHub</span>
+        </a>
+
+        <!-- Dark/Light Theme Toggle -->
+        <button id="themeToggle" class="btn btn-ghost theme-toggle-btn" aria-label="Toggle theme">
+          <span id="themeIcon">☀️</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-badge">
+      <span>✨ Verified Code Solutions</span>
+      <span>•</span>
+      <span>Practicals 1.1 to 7.2</span>
+    </div>
+    <h1 class="hero-title">
+      Competitive Programming <br>
+      <span class="gradient-text">Laboratory Practical Manual</span>
+    </h1>
+    <p class="hero-subtitle">
+      Comprehensive solutions for standard LeetCode & algorithmic challenges with detailed complexity analyses, optimized implementations in C++ & Java, and interactive test runners.
+    </p>
+
+    <!-- Key Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(99, 102, 241, 0.15); color: #818cf8;">📌</div>
+        <div>
+          <div class="stat-value">17</div>
+          <div class="stat-label">Total Problems</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(6, 182, 212, 0.15); color: #22d3ee;">📚</div>
+        <div>
+          <div class="stat-value">7</div>
+          <div class="stat-label">Practical Units</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">⚡</div>
+        <div>
+          <div class="stat-value">C++ & Java</div>
+          <div class="stat-label">Languages</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">🎯</div>
+        <div>
+          <div class="stat-value">100%</div>
+          <div class="stat-label">Pass Verified</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Search & Filter Controls -->
+  <section class="controls-section">
+    <div class="controls-bar">
+      <!-- Search Input -->
+      <div class="search-row">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search by problem name, practical ID (e.g. 1.1), topic, or LeetCode #..." autocomplete="off">
+          <span class="search-shortcut">/</span>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="filter-row">
+        <button class="filter-pill active" data-category="all">All Topics</button>
+        <button class="filter-pill" data-category="Math & Number Theory">Math & Number Theory</button>
+        <button class="filter-pill" data-category="Bit Manipulation">Bit Manipulation</button>
+        <button class="filter-pill" data-category="Recursion & Backtracking">Recursion & Backtracking</button>
+        <button class="filter-pill" data-category="Stack & Monotonic Queue">Stack & Monotonic Queue</button>
+        <button class="filter-pill" data-category="Strings & Pattern Matching">Strings & Pattern Matching</button>
+        <button class="filter-pill" data-category="Two Pointers & Sliding Window">Two Pointers</button>
+        <button class="filter-pill" data-category="Graph Theory & BFS/DFS">Graph Theory</button>
+        <button class="filter-pill" data-category="Dynamic Programming">Dynamic Programming</button>
+      </div>
+
+      <!-- Secondary Filters & Item Count -->
+      <div class="filter-sub-row">
+        <div class="filter-group">
+          <span class="filter-label">Language:</span>
+          <select id="langFilter" class="select-filter">
+            <option value="all">All Languages</option>
+            <option value="cpp">C++</option>
+            <option value="java">Java</option>
+          </select>
+
+          <span class="filter-label" style="margin-left: 0.5rem;">Difficulty:</span>
+          <select id="diffFilter" class="select-filter">
+            <option value="all">All Difficulties</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-label">Showing:</span>
+          <span id="visibleCount" style="font-weight: 700; color: var(--accent-primary);">17 / 17</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Layout -->
+  <main class="main-layout">
+    <!-- Sticky Table of Contents Sidebar -->
+    <aside class="toc-sidebar" aria-label="Table of Contents">
+      <div class="toc-header">
+        <span>Table of Contents</span>
+        <span>⚡ Quick Jump</span>
+      </div>
+      <ul class="toc-list" id="tocList">
+        <!-- Rendered by JS -->
+      </ul>
+    </aside>
+
+    <!-- Practical Cards Stream -->
+    <section class="practicals-container" id="practicalsList">
+      <!-- Rendered by JS -->
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <div class="brand-section">
+        <div class="brand-logo" style="width: 34px; height: 34px; font-size: 1rem;">CP</div>
+        <div class="brand-title-wrap" style="text-align: left;">
+          <h2 style="font-size: 1rem; color: var(--text-primary);">Competitive Programming Practicals</h2>
+          <p>Created from CP Practicals.pdf • Ready for GitHub Pages</p>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <a href="#prac-1-1" class="footer-link">Back to Top</a>
+        <a href="CP Practicals.pdf" download="CP_Practicals.pdf" class="footer-link">Download PDF Manual</a>
+        <a href="https://github.com/JitenPanchal" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub Profile</a>
+      </div>
+
+      <p class="footer-copy">
+        Designed with high-performance Vanilla HTML5, CSS3 & Modern JavaScript.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

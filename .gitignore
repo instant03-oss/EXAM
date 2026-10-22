@@ -1,0 +1,11 @@
+# Temporary / scratch extraction files
+inspect_data.py
+dump_all_pages.py
+generate_json.py
+extracted_practicals.json
+practicals_clean.json
+
+# IDE & OS files
+.DS_Store
+Thumbs.db
+*.log
