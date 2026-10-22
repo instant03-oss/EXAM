@@ -4,10 +4,11 @@ const PRACTICALS_DATA = [
     "unit": "Practical 1",
     "title": "Factorial of Trailing Zeroes",
     "category": "Math & Number Theory",
-    "lang": "java",
+    "lang": "cpp",
     "difficulty": "Medium",
     "leetcode": "172",
     "summary": "Calculate the count of trailing zeroes in n! by counting factors of 5.",
+    "inputFormat": "one integer n.",
     "description": "Given an integer n, return the number of trailing zeroes in n!. Note that n! = n * (n - 1) * ... * 1.\n\nA trailing zero is always formed by a pair of factors (2, 5). In any factorial sequence, multiples of 2 are far more abundant than multiples of 5. Therefore, counting how many factors of 5 contribute to the product directly yields the exact number of trailing zeroes: n/5 + n/25 + n/125 + ...",
     "complexity": {
       "time": "O(log₅ n)",
@@ -29,16 +30,18 @@ const PRACTICALS_DATA = [
         return `Trailing Zeroes in ${n}! = ${ans}\n\nCalculation steps:\n${steps.join('\n') || 'n < 5, so 0 trailing zeroes.'}`;
       }
     },
-    "code": `class Solution { 
-    public int trailingZeroes(int n) { 
-        int ans = 0; 
-        if (n < 5) return 0;  
-        while (n > 0) { 
-            n = n / 5;   
-            ans += n; 
-        } 
-        return ans; 
-    } 
+    "code": `#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    long long n;
+    cin >> n;
+    long long ans = 0;
+    while (n > 0) {
+        n /= 5;
+        ans += n;
+    }
+    cout << ans << '\n';
+    return 0;
 }`
   },
   {
@@ -50,6 +53,7 @@ const PRACTICALS_DATA = [
     "difficulty": "Medium",
     "leetcode": "Bézout's Identity",
     "summary": "Computes GCD(a, b) and coefficients x, y such that a*x + b*y = gcd(a, b).",
+    "inputFormat": "two integers a and b. Output: gcd(a,b).",
     "description": "The Extended Euclidean Algorithm extends Euclid's algorithm to calculate the greatest common divisor gcd(a, b) and also the integers x and y satisfying Bézout's identity: a*x + b*y = gcd(a, b). This is fundamental in modular arithmetic, computing modular inverses, and RSA cryptography.",
     "complexity": {
       "time": "O(log(min(a, b)))",
@@ -74,29 +78,23 @@ const PRACTICALS_DATA = [
         return `GCD(${a}, ${b}) = ${res.g}\nBézout Coefficients:\nx = ${res.x}, y = ${res.y}\nVerification: (${a})*(${res.x}) + (${b})*(${res.y}) = ${a * res.x + b * res.y} == ${res.g}`;
       }
     },
-    "code": `class Solution { 
-public: 
-    int extendedGCD(int a, int b, int &x, int &y) { 
-        if (b == 0) { 
-            x = 1; 
-            y = 0; 
-            return a; 
-        } 
-
-        int x1, y1; 
-        int g = extendedGCD(b, a % b, x1, y1); 
-
-        x = y1; 
-        y = x1 - (a / b) * y1; 
-
-        return g; 
-    } 
-
-    int gcd(int a, int b) { 
-        int x, y; 
-        return extendedGCD(a, b, x, y); 
-    } 
-};`
+    "code": `#include <bits/stdc++.h>
+using namespace std;
+long long extendedGCD(long long a, long long b, long long &x, long long &y) {
+    if (b == 0) { x = 1; y = 0; return a; }
+    long long x1, y1;
+    long long g = extendedGCD(b, a % b, x1, y1);
+    x = y1;
+    y = x1 - (a / b) * y1;
+    return g;
+}
+int main() {
+    long long a, b, x, y;
+    cin >> a >> b;
+    long long g = extendedGCD(llabs(a), llabs(b), x, y);
+    cout << g << '\n';
+    return 0;
+}`
   },
   {
     "id": "1.3",
@@ -107,6 +105,7 @@ public:
     "difficulty": "Easy",
     "leetcode": "268",
     "summary": "Find the single missing number from [0, n] in an array using XOR properties.",
+    "inputFormat": "n followed by n distinct integers from 0 to n, with one missing.",
     "description": "Given an array containing n distinct numbers in the range [0, n], return the only number missing from the array. By leveraging XOR properties (a ^ a = 0 and a ^ 0 = a), XORing all numbers from 0 to n with all numbers in the array eliminates all matched pairs, leaving only the missing number.",
     "complexity": {
       "time": "O(n)",
@@ -127,21 +126,16 @@ public:
         return `Array size: ${n} (Expected range: 0 to ${n})\nInput: [${nums.join(', ')}]\nMissing Number: ${missing}`;
       }
     },
-    "code": `class Solution { 
-public: 
-    int missingNumber(vector<int>& nums) { 
-        int xor_num = 0, xor2 = 0, n = nums.size(); 
-        for(int i = 0; i <= n; i++) 
-        { 
-            xor_num = xor_num ^ i; 
-        } 
-        for(int i = 0; i < n; i++) 
-        { 
-            xor2 = xor2 ^ nums[i]; 
-        } 
-        return xor_num ^ xor2; 
-    } 
-};`
+    "code": `#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n; cin >> n;
+    int xr = 0, x;
+    for (int i = 0; i <= n; ++i) xr ^= i;
+    for (int i = 0; i < n; ++i) { cin >> x; xr ^= x; }
+    cout << xr << '\n';
+    return 0;
+}`
   },
   {
     "id": "1.4",
@@ -152,6 +146,7 @@ public:
     "difficulty": "Medium",
     "leetcode": "260",
     "summary": "Find two unique numbers in an array where every other element appears twice.",
+    "inputFormat": "n followed by n integers; exactly two values occur once and others occur twice.",
     "description": "Given an integer array nums where exactly two elements appear once and all others appear twice, find the two single elements. First XOR all elements to obtain (x ^ y). Then isolate the lowest set bit (diff = ext & -ext) which indicates a bit where x and y differ. Partition elements into two groups based on this bit to isolate both numbers.",
     "complexity": {
       "time": "O(n)",
@@ -174,25 +169,22 @@ public:
         return `Input: [${nums.join(', ')}]\nIsolated Bit Mask: ${diff} (binary: 0b${(diff >>> 0).toString(2)})\nSingle Numbers: [${x}, ${y}]`;
       }
     },
-    "code": `class Solution { 
-public: 
-    vector<int> singleNumber(vector<int>& nums) { 
-        long ext = 0; 
-        for (int i = 0; i < nums.size(); i++) { 
-            ext ^= nums[i]; 
-        } 
-        long x = 0, y = 0; 
-        long diff = ext & (-ext); 
-        for (int i = 0; i < nums.size(); i++) { 
-            if (nums[i] & diff) { 
-                x ^= nums[i]; 
-            } else { 
-                y ^= nums[i]; 
-            } 
-        } 
-        return {(int)x, (int)y}; 
-    } 
-};`
+    "code": `#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n; cin >> n;
+    vector<int> nums(n);
+    long long xr = 0;
+    for (int &v : nums) { cin >> v; xr ^= v; }
+    long long diff = xr & -xr, x = 0, y = 0;
+    for (int v : nums) {
+        if (v & diff) x ^= v;
+        else y ^= v;
+    }
+    if (x > y) swap(x, y);
+    cout << x << ' ' << y << '\n';
+    return 0;
+}`
   },
   {
     "id": "2.1",
@@ -203,6 +195,7 @@ public:
     "difficulty": "Medium",
     "leetcode": "78",
     "summary": "Generate all possible subsets (the power set) of unique integers.",
+    "inputFormat": "n followed by n integers. Prints every subset on a separate line in bitmask order ([], [1], [2], [1 2], [3], ...); the empty subset prints as an empty line.",
     "description": "Given an integer array nums of unique elements, return all possible subsets (the power set). Uses recursive backtracking exploring both branches at each index: excluding nums[i] or including nums[i], generating all 2^n combinations without duplicates.",
     "complexity": {
       "time": "O(2ⁿ)",
@@ -231,23 +224,26 @@ public:
         return `Total Subsets (2^${nums.length} = ${ans.length}):\n${formatted}`;
       }
     },
-    "code": `class Solution { 
-public: 
-    vector<vector<int>> ans; 
-    void tra(vector<int>& nums, int i, vector<int> rst) { 
-        if (i >= nums.size()) { 
-            ans.push_back(rst); 
-            return; 
-        } 
-        tra(nums, i + 1, rst); 
-        rst.push_back(nums[i]); 
-        tra(nums, i + 1, rst); 
-    } 
-    vector<vector<int>> subsets(vector<int>& nums) { 
-        tra(nums, 0, {}); 
-        return ans; 
-    } 
-};`
+    "code": `#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n; cin >> n;
+    vector<int> a(n);
+    for (int &x : a) cin >> x;
+    // Subsets in bitmask order: [], [1], [2], [1 2], [3], [1 3], [2 3], [1 2 3]
+    for (long long mask = 0; mask < (1LL << n); ++mask) {
+        bool first = true;
+        for (int j = 0; j < n; ++j) {
+            if (mask >> j & 1) {
+                if (!first) cout << ' ';
+                cout << a[j];
+                first = false;
+            }
+        }
+        cout << '\n';
+    }
+    return 0;
+}`
   },
   {
     "id": "2.2",
@@ -258,6 +254,7 @@ public:
     "difficulty": "Medium",
     "leetcode": "46",
     "summary": "Generate all permutations of distinct elements using visited array backtracking.",
+    "inputFormat": "n followed by n distinct integers. Prints each permutation on a separate line.",
     "description": "Given an array nums of distinct integers, return all the possible permutations. The algorithm uses a boolean visited array to track chosen elements, recursing until the temporary candidate array matches the size of nums, and backtracks by undoing choices.",
     "complexity": {
       "time": "O(n * n!)",
@@ -293,31 +290,34 @@ public:
         return `Total Permutations (${nums.length}! = ${ans.length}):\n${formatted}`;
       }
     },
-    "code": `class Solution { 
-public: 
-    vector<vector<int>> ans; 
-    vector<int> temp; 
-    void show(vector<bool>& visited, vector<int>& nums) { 
-        if (temp.size() == nums.size()) { 
-            ans.push_back(temp); 
-            return; 
-        } 
-        for (int i = 0; i < nums.size(); i++) { 
-            if (!visited[i]) { 
-                visited[i] = true; 
-                temp.push_back(nums[i]); 
-                show(visited, nums); 
-                visited[i] = false; 
-                temp.pop_back(); 
-            } 
-        } 
-    } 
-    vector<vector<int>> permute(vector<int>& nums) { 
-        vector<bool> visited(nums.size(), false); 
-        show(visited, nums); 
-        return ans; 
-    } 
-};`
+    "code": `#include <bits/stdc++.h>
+using namespace std;
+vector<int> a, cur;
+vector<bool> used;
+void generate() {
+    if (cur.size() == a.size()) {
+        for (int i = 0; i < (int)cur.size(); ++i) {
+            if (i) cout << ' ';
+            cout << cur[i];
+        }
+        cout << '\n';
+        return;
+    }
+    for (int i = 0; i < (int)a.size(); ++i) {
+        if (!used[i]) {
+            used[i] = true; cur.push_back(a[i]);
+            generate();
+            cur.pop_back(); used[i] = false;
+        }
+    }
+}
+int main() {
+    int n; cin >> n;
+    a.resize(n); used.assign(n, false);
+    for (int &x : a) cin >> x;
+    generate();
+    return 0;
+}`
   },
   {
     "id": "3.1",
@@ -328,6 +328,7 @@ public:
     "difficulty": "Medium",
     "leetcode": "735",
     "summary": "Simulate asteroid collisions where opposite direction asteroids crash by size.",
+    "inputFormat": "n followed by n signed asteroid sizes.",
     "description": "Each asteroid's absolute value represents size, and sign represents direction (+ is right, - is left). A collision occurs only when a right-moving asteroid meets a left-moving asteroid. Utilizing a stack, we resolve collisions between the current left-moving asteroid and preceding right-moving asteroids until one survives or both explode.",
     "complexity": {
       "time": "O(n)",
@@ -367,38 +368,28 @@ public:
         return `Final Surviving Asteroids: [${st.join(', ')}]\n\nEvent Log:\n${logs.join('\n') || 'No collisions occurred.'}`;
       }
     },
-    "code": `class Solution { 
-public: 
-    vector<int> asteroidCollision(vector<int>& asteroids) { 
-        stack<int> st; 
-        for (int curr : asteroids) { 
-            bool alive = true; 
-            while (!st.empty() && curr < 0 && st.top() > 0) { 
-                int top = st.top(); 
-                if (abs(top) < abs(curr)) { 
-                    st.pop(); 
-                    continue; 
-                } 
-                if (abs(top) == abs(curr)) { 
-                    st.pop(); 
-                    alive = false; 
-                    break; 
-                } 
-                alive = false; 
-                break; 
-            } 
-            if (alive) { 
-                st.push(curr); 
-            } 
-        } 
-        vector<int> ans(st.size()); 
-        for (int i = ans.size() - 1; i >= 0; i--) { 
-            ans[i] = st.top(); 
-            st.pop(); 
-        } 
-        return ans; 
-    } 
-};`
+    "code": `#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n; cin >> n;
+    vector<int> a(n), st;
+    for (int &x : a) cin >> x;
+    for (int x : a) {
+        bool alive = true;
+        while (alive && x < 0 && !st.empty() && st.back() > 0) {
+            if (abs(st.back()) < abs(x)) st.pop_back();
+            else if (abs(st.back()) == abs(x)) { st.pop_back(); alive = false; }
+            else alive = false;
+        }
+        if (alive) st.push_back(x);
+    }
+    for (int i = 0; i < (int)st.size(); ++i) {
+        if (i) cout << ' ';
+        cout << st[i];
+    }
+    cout << '\n';
+    return 0;
+}`
   },
   {
     "id": "3.2",
@@ -409,6 +400,7 @@ public:
     "difficulty": "Hard",
     "leetcode": "42",
     "summary": "Calculate total trapped rainwater above elevation bars using two pointers.",
+    "inputFormat": "n followed by n non-negative heights.",
     "description": "Given n non-negative integers representing elevation bars, calculate how much water gets trapped after raining. The two-pointer approach maintains leftMax and rightMax. Since the trapped water at position i is min(leftMax, rightMax) - height[i], moving the pointer with the smaller maximum guarantees water trapped without requiring extra memory.",
     "complexity": {
       "time": "O(n)",
@@ -438,28 +430,27 @@ public:
         return `Elevation Heights: [${height.join(', ')}]\nTotal Trapped Rainwater: ${water} units`;
       }
     },
-    "code": `class Solution { 
-public: 
-    int trap(vector<int>& height) { 
-        int left = 0; 
-        int right = height.size() - 1; 
-        int leftMax = height[left]; 
-        int rightMax = height[right]; 
-        int water = 0; 
-        while (left < right) { 
-            if (leftMax < rightMax) { 
-                left++; 
-                leftMax = max(leftMax, height[left]); 
-                water += leftMax - height[left]; 
-            } else { 
-                right--; 
-                rightMax = max(rightMax, height[right]); 
-                water += rightMax - height[right]; 
-            } 
-        } 
-        return water;         
-    } 
-};`
+    "code": `#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n; cin >> n;
+    vector<long long> h(n);
+    for (auto &x : h) cin >> x;
+    if (n < 3) { cout << 0 << '\n'; return 0; }
+    int l = 0, r = n - 1;
+    long long leftMax = 0, rightMax = 0, water = 0;
+    while (l < r) {
+        if (h[l] < h[r]) {
+            leftMax = max(leftMax, h[l]);
+            water += leftMax - h[l++];
+        } else {
+            rightMax = max(rightMax, h[r]);
+            water += rightMax - h[r--];
+        }
+    }
+    cout << water << '\n';
+    return 0;
+}`
   },
   {
     "id": "4.1",
@@ -470,6 +461,7 @@ public:
     "difficulty": "Medium",
     "leetcode": "2785",
     "summary": "Sort all vowels in ASCII order while maintaining consonant positions.",
+    "inputFormat": "one full line string.",
     "description": "Given a string s, sort vowels in non-decreasing order of ASCII values (order: 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u') while maintaining consonants in their exact positions. Solved efficiently in O(n) using frequency counting over the 10 vowels.",
     "complexity": {
       "time": "O(n)",
@@ -504,34 +496,28 @@ public:
         return `Input:  ${s}\nOutput: ${arr.join('')}`;
       }
     },
-    "code": `class Solution { 
-public: 
-    string sortVowels(string s) { 
-        vector<int> freq(128, 0); 
-        vector<bool> isVowel(128, false); 
-        string vowels = "aeiouAEIOU"; 
-        for (char v : vowels) { 
-            isVowel[v] = true; 
-        } 
-        for (char c : s) { 
-            if (isVowel[c]) { 
-                freq[c]++; 
-            } 
-        } 
-        string order = "AEIOUaeiou"; 
-        int pos = 0; 
-        for (char &c : s) { 
-            if (isVowel[c]) { 
-                while (pos < order.size() && freq[order[pos]] == 0) { 
-                    pos++; 
-                } 
-                c = order[pos]; 
-                freq[order[pos]]--; 
-            } 
-        } 
-        return s; 
-    } 
-};`
+    "code": `#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    string s; getline(cin, s);
+    if (!s.empty() && s.back() == '\r') s.pop_back();
+    string order = "AEIOUaeiou";
+    vector<int> freq(256, 0);
+    vector<bool> vowel(256, false);
+    for (char c : order) vowel[(unsigned char)c] = true;
+    for (unsigned char c : s) if (vowel[c]) freq[c]++;
+    int pos = 0;
+    for (char &c : s) {
+        unsigned char uc = (unsigned char)c;
+        if (vowel[uc]) {
+            while (pos < (int)order.size() && freq[(unsigned char)order[pos]] == 0) pos++;
+            c = order[pos];
+            freq[(unsigned char)order[pos]]--;
+        }
+    }
+    cout << s << '\n';
+    return 0;
+}`
   },
   {
     "id": "4.2",
@@ -542,6 +528,7 @@ public:
     "difficulty": "Hard",
     "leetcode": "44",
     "summary": "Implement wildcard matching supporting '?' (single char) and '*' (any sequence).",
+    "inputFormat": "string s on the first line and pattern p on the second line. '?' matches one character; '*' matches any sequence.",
     "description": "Given string s and pattern p, evaluate whether p matches the entire string s. '?' matches any single character, and '*' matches any sequence (including empty sequence). An optimal greedy two-pointer algorithm with back-tracking records star positions, achieving O(1) space.",
     "complexity": {
       "time": "O(m * n) worst case, O(n) average",
@@ -571,36 +558,24 @@ public:
         return `String: "${s}"\nPattern: "${p}"\nMatch Result: ${isMatch ? "TRUE (Matches!)" : "FALSE"}`;
       }
     },
-    "code": `class Solution { 
-public: 
-    bool isMatch(string s, string p) { 
-        int i = 0, j = 0; 
-        int star = -1; 
-        int match = 0; 
-        while (i < s.size()) { 
-            if (j < p.size() && (p[j] == '?' || p[j] == s[i])) { 
-                i++; 
-                j++; 
-            } 
-            else if (j < p.size() && p[j] == '*') { 
-                star = j; 
-                match = i; 
-                j++; 
-            } 
-            else if (star != -1) { 
-                j = star + 1; 
-                match++; 
-                i = match; 
-            } 
-            else { 
-                return false; 
-            } 
-        } 
-        while (j < p.size() && p[j] == '*') 
-            j++; 
-        return j == p.size(); 
-    } 
-};`
+    "code": `#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    string s, p;
+    getline(cin, s); getline(cin, p);
+    if (!s.empty() && s.back() == '\r') s.pop_back();
+    if (!p.empty() && p.back() == '\r') p.pop_back();
+    int i = 0, j = 0, star = -1, match = 0;
+    while (i < (int)s.size()) {
+        if (j < (int)p.size() && (p[j] == '?' || p[j] == s[i])) { i++; j++; }
+        else if (j < (int)p.size() && p[j] == '*') { star = j; match = i; j++; }
+        else if (star != -1) { j = star + 1; i = ++match; }
+        else { cout << "false\n"; return 0; }
+    }
+    while (j < (int)p.size() && p[j] == '*') j++;
+    cout << (j == (int)p.size() ? "true" : "false") << '\n';
+    return 0;
+}`
   },
   {
     "id": "4.3",
@@ -611,6 +586,7 @@ public:
     "difficulty": "Hard",
     "leetcode": "1542",
     "summary": "Find the longest substring of digits that can be rearranged into a palindrome.",
+    "inputFormat": "a string containing digits 0-9.",
     "description": "A digit substring can form a palindrome if and only if at most one digit appears an odd number of times. Using a 10-bit bitmask where each bit tracks the parity of digit (0-9) frequencies, we store the earliest occurrence of each mask. At each index, we check if the current mask or a mask differing by exactly one bit was seen earlier.",
     "complexity": {
       "time": "O(10 * n) = O(n)",
@@ -635,22 +611,23 @@ public:
         return `Input Digit String: "${s}"\nLongest Awesome Substring Length: ${res}`;
       }
     },
-    "code": `class Solution { 
-public: 
-int longestAwesome(string s) { 
-    vector<int> dp(1024, s.size()); 
-    int res = 0, mask = 0; 
-    dp[0] = -1; 
-    for (auto i = 0; i < s.size(); ++i) { 
-        mask ^= 1 << (s[i] - '0'); 
-        res = max(res, i - dp[mask]); 
-        for (auto j = 0; j <= 9; ++j) 
-            res = max(res, i - dp[mask ^ (1 << j)]); 
-        dp[mask] = min(dp[mask], i); 
-    } 
-    return res; 
-} 
-};`
+    "code": `#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    string s; cin >> s;
+    vector<int> first(1 << 10, (int)s.size() + 1);
+    first[0] = -1;
+    int mask = 0, ans = 0;
+    for (int i = 0; i < (int)s.size(); ++i) {
+        mask ^= 1 << (s[i] - '0');
+        ans = max(ans, i - first[mask]);
+        for (int b = 0; b < 10; ++b)
+            ans = max(ans, i - first[mask ^ (1 << b)]);
+        first[mask] = min(first[mask], i);
+    }
+    cout << ans << '\n';
+    return 0;
+}`
   },
   {
     "id": "5.1",
@@ -661,6 +638,7 @@ int longestAwesome(string s) {
     "difficulty": "Medium",
     "leetcode": "739",
     "summary": "Compute wait days until a warmer day using an optimized jump pointer approach.",
+    "inputFormat": "n followed by n temperatures.",
     "description": "Given daily temperatures T, return answer where answer[i] is the number of days to wait for a warmer temperature. This clever solution iterates backward from the end and reuses already computed jump distances in ans array, hopping directly across colder days in O(1) auxiliary memory.",
     "complexity": {
       "time": "O(n)",
@@ -684,29 +662,37 @@ int longestAwesome(string s) {
         return `Temperatures: [${T.join(', ')}]\nDays to wait:  [${ans.join(', ')}]`;
       }
     },
-    "code": `class Solution { 
-public: 
-    vector<int> dailyTemperatures(vector<int>& T) { 
-        vector<int> ans(size(T)); 
-        for(int n = size(T), cur = n-2; cur >= 0; cur--) { 
-            int next = cur + 1; 
-            while(next < n && T[next] <= T[cur])  
-                next += ans[next] ? ans[next] : n; 
-            if(next < n) ans[cur] = next-cur;  
-        } 
-        return ans; 
-    } 
-};`
+    "code": `#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n; cin >> n;
+    vector<int> t(n), ans(n, 0), st;
+    for (int &x : t) cin >> x;
+    for (int i = 0; i < n; ++i) {
+        while (!st.empty() && t[i] > t[st.back()]) {
+            ans[st.back()] = i - st.back();
+            st.pop_back();
+        }
+        st.push_back(i);
+    }
+    for (int i = 0; i < n; ++i) {
+        if (i) cout << ' ';
+        cout << ans[i];
+    }
+    cout << '\n';
+    return 0;
+}`
   },
   {
     "id": "5.2",
     "unit": "Practical 5",
     "title": "Defuse the Bomb",
     "category": "Two Pointers & Sliding Window",
-    "lang": "java",
+    "lang": "cpp",
     "difficulty": "Easy",
     "leetcode": "1652",
     "summary": "Decrypt circular array by sliding window sum of next or previous k elements.",
+    "inputFormat": "n k followed by n circular-array values.",
     "description": "Given circular array code and key k: if k > 0, replace code[i] with sum of next k numbers; if k < 0, replace with sum of previous |k| numbers; if k == 0, replace with 0. Maintained using a sliding window of size |k| updated circularly in O(n) total time.",
     "complexity": {
       "time": "O(n)",
@@ -743,25 +729,29 @@ public:
         return `Input Code: [${code.join(', ')}], k = ${k}\nDecrypted Code: [${result.join(', ')}]`;
       }
     },
-    "code": `class Solution { 
-    public int[] decrypt(int[] code, int k) { 
-        int[] result = new int[code.length]; 
-        if (k == 0) return result; 
-        int start = 1, end = k, sum = 0; 
-        if (k < 0) { 
-            start = code.length - Math.abs(k); 
-            end = code.length - 1; 
-        } 
-        for (int i = start; i <= end; i++) sum += code[i]; 
-        for (int i = 0; i < code.length; i++) { 
-            result[i] = sum; 
-            sum -= code[(start) % code.length]; 
-            sum += code[(end + 1) % code.length]; 
-            start++; 
-            end++; 
-        } 
-        return result; 
-    } 
+    "code": `#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n, k; cin >> n >> k;
+    vector<long long> code(n), ans(n, 0);
+    for (auto &x : code) cin >> x;
+    if (k != 0) {
+        // window for index i: positions i+1..i+k (k>0) or i+k..i-1 (k<0), circular
+        long long sum = 0;
+        int a = abs(k);
+        for (int j = 1; j <= a; ++j) sum += code[((k > 0 ? j : -j) % n + n) % n];
+        for (int i = 0; i < n; ++i) {
+            ans[i] = sum;
+            int removeIdx, addIdx;
+            if (k > 0) { removeIdx = (i + 1) % n; addIdx = (i + k + 1) % n; }
+            else       { removeIdx = ((i + k) % n + n) % n; addIdx = i; }
+            sum -= code[removeIdx];
+            sum += code[addIdx];
+        }
+    }
+    for (int i = 0; i < n; ++i) cout << (i ? " " : "") << ans[i];
+    cout << '\n';
+    return 0;
 }`
   },
   {
@@ -769,10 +759,11 @@ public:
     "unit": "Practical 6",
     "title": "Number of Provinces",
     "category": "Graph Theory & BFS/DFS",
-    "lang": "java",
+    "lang": "cpp",
     "difficulty": "Medium",
     "leetcode": "547",
     "summary": "Count connected components in an undirected graph from adjacency matrix.",
+    "inputFormat": "n followed by an n x n adjacency matrix.",
     "description": "Given an n x n adjacency matrix isConnected where isConnected[i][j] = 1 indicates direct connection between city i and city j, count total provinces (connected components). Explores each unvisited node via Depth First Search (DFS), marking all transitively connected cities as visited.",
     "complexity": {
       "time": "O(n²)",
@@ -806,27 +797,23 @@ public:
         }
       }
     },
-    "code": `class Solution { 
-    public void dfs(int node, int[][] isConnected, boolean[] visit) { 
-        visit[node] = true; 
-        for (int i = 0; i < isConnected.length; i++) { 
-            if (isConnected[node][i] == 1 && !visit[i]) { 
-                dfs(i, isConnected, visit); 
-            } 
-        } 
-    } 
-    public int findCircleNum(int[][] isConnected) { 
-        int n = isConnected.length; 
-        int numberOfComponents = 0; 
-        boolean[] visit = new boolean[n]; 
-        for (int i = 0; i < n; i++) { 
-            if (!visit[i]) { 
-                numberOfComponents++; 
-                dfs(i, isConnected, visit); 
-            } 
-        } 
-        return numberOfComponents; 
-    } 
+    "code": `#include <bits/stdc++.h>
+using namespace std;
+void dfs(int u, vector<vector<int>>& g, vector<bool>& seen) {
+    seen[u] = true;
+    for (int v = 0; v < (int)g.size(); ++v)
+        if (g[u][v] && !seen[v]) dfs(v, g, seen);
+}
+int main() {
+    int n; cin >> n;
+    vector<vector<int>> g(n, vector<int>(n));
+    for (auto &row : g) for (int &x : row) cin >> x;
+    vector<bool> seen(n, false);
+    int provinces = 0;
+    for (int i = 0; i < n; ++i)
+        if (!seen[i]) { provinces++; dfs(i, g, seen); }
+    cout << provinces << '\n';
+    return 0;
 }`
   },
   {
@@ -838,6 +825,7 @@ public:
     "difficulty": "Medium",
     "leetcode": "207",
     "summary": "Determine if courses can be finished using DFS directed cycle detection.",
+    "inputFormat": "number of courses n, number of prerequisite pairs m, then m pairs (course prerequisite).",
     "description": "Determines whether all courses can be finished given prerequisite dependencies. If the dependency graph has a cycle, completing all courses is impossible. Uses DFS with two tracking arrays: `vis` (nodes processed across any traversal) and `pathVis` (nodes currently in the active recursion call stack). A cycle exists if an edge points to a node currently in `pathVis`.",
     "complexity": {
       "time": "O(V + E)",
@@ -884,54 +872,39 @@ public:
         return `Num Courses: ${numCourses}\nPrerequisites: ${JSON.stringify(prereqs)}\nCycle Detected: ${cycle ? "YES (Deadlock!)" : "NO (Can complete all!)"}\nCan Finish: ${!cycle}`;
       }
     },
-    "code": `class Solution { 
-private: 
-    bool dfs(int node, vector<int>& vis, vector<int>& pathVis, 
-             vector<int> adj[]) { 
-        vis[node] = 1; 
-        pathVis[node] = 1; 
-        for (auto adjNode : adj[node]) { 
-            if (!vis[adjNode]) { 
-                if (dfs(adjNode, vis, pathVis, adj) == true) 
-                    return true; 
-            } 
-            else if (pathVis[adjNode]) { 
-                return true; 
-            } 
-        } 
-        pathVis[node] = 0; 
-        return false; 
-    } 
-public: 
-    bool canFinish(int numCourses, 
-                   vector<vector<int>>& prerequisites) { 
-        vector<int> adj[numCourses]; 
-        for (int i = 0; i < prerequisites.size(); i++) { 
-            int u = prerequisites[i][1]; 
-            int v = prerequisites[i][0]; 
-            adj[u].push_back(v); 
-        } 
-        vector<int> vis(numCourses, 0); 
-        vector<int> pathVis(numCourses, 0); 
-        for (int i = 0; i < numCourses; i++) { 
-            if (!vis[i]) { 
-                if (dfs(i, vis, pathVis, adj) == true) 
-                    return false; 
-            } 
-        } 
-        return true; 
-    } 
-};`
+    "code": `#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n, m; cin >> n >> m;
+    vector<vector<int>> adj(n);
+    vector<int> indeg(n, 0);
+    for (int i = 0; i < m; ++i) {
+        int course, prerequisite; cin >> course >> prerequisite;
+        adj[prerequisite].push_back(course);
+        indeg[course]++;
+    }
+    queue<int> q;
+    for (int i = 0; i < n; ++i) if (indeg[i] == 0) q.push(i);
+    int done = 0;
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        done++;
+        for (int v : adj[u]) if (--indeg[v] == 0) q.push(v);
+    }
+    cout << (done == n ? "true" : "false") << '\n';
+    return 0;
+}`
   },
   {
     "id": "7.1",
     "unit": "Practical 7",
     "title": "Champagne Tower",
     "category": "Dynamic Programming",
-    "lang": "java",
+    "lang": "cpp",
     "difficulty": "Medium",
     "leetcode": "799",
     "summary": "Simulate pyramid champagne flow and determine fullness of glass (r, c).",
+    "inputFormat": "poured query_row query_glass.",
     "description": "Glasses stacked in a pyramid shape: row 0 has 1 glass, row 1 has 2 glasses, etc. Each glass holds 1 cup. When poured, excess liquid (dp[j] - 1.0) / 2.0 spills equally to glass (j) and glass (j + 1) in the row below. Optimized using 1D DP calculated in reverse row traversal.",
     "complexity": {
       "time": "O(query_row²)",
@@ -963,23 +936,22 @@ public:
         return `Poured: ${poured} cups\nTarget Glass: Row ${query_row}, Glass ${query_glass}\nFullness Level: ${(ans * 100).toFixed(1)}% (${ans.toFixed(4)} cups)`;
       }
     },
-    "code": `class Solution { 
-    public double champagneTower(int poured, int query_row, int query_glass) { 
-        double[] dp = new double[query_row + 1]; 
-        dp[0] = poured; 
-        for (int i = 0; i < query_row; i++) { 
-            for (int j = i; j >= 0; j--) { 
-                double excess = (dp[j] - 1.0) / 2.0; 
-                if (excess > 0) { 
-                    dp[j + 1] += excess; 
-                    dp[j] = excess; 
-                } else { 
-                    dp[j] = 0; 
-                } 
-            } 
-        } 
-        return Math.min(1.0, dp[query_glass]); 
-    } 
+    "code": `#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int poured, query_row, query_glass;
+    cin >> poured >> query_row >> query_glass;
+    vector<double> dp(query_row + 2, 0.0);
+    dp[0] = poured;
+    for (int row = 0; row < query_row; ++row) {
+        for (int j = row; j >= 0; --j) {
+            double excess = max(0.0, (dp[j] - 1.0) / 2.0);
+            dp[j] = excess;
+            dp[j + 1] += excess;
+        }
+    }
+    cout << fixed << setprecision(6) << min(1.0, dp[query_glass]) << '\n';
+    return 0;
 }`
   },
   {
@@ -991,6 +963,7 @@ public:
     "difficulty": "Medium",
     "leetcode": "198",
     "summary": "Maximize robbed money along houses without alerting alarm on adjacent houses.",
+    "inputFormat": "n followed by n non-negative house values.",
     "description": "Each house has money stashed. You cannot rob two adjacent houses. At each house i, the decision is either skip it (keep previous maximum) or rob it (current value + maximum up to house i - 2). Space is optimized to O(1) using two variables `prev` and `prev2`.",
     "complexity": {
       "time": "O(n)",
@@ -1014,17 +987,19 @@ public:
         return `House Cash: [${A.join(', ')}]\nMaximum Stolen Profit: $${cur}\n\nStep-by-step DP:\n${trace.join('\n')}`;
       }
     },
-    "code": `class Solution { 
-public: 
-    int rob(vector<int>& A) { 
-        int prev2 = 0, prev = 0, cur = 0; 
-        for(auto i : A) { 
-            cur = max(prev, i + prev2); 
-            prev2 = prev; 
-            prev = cur; 
-        } 
-        return cur; 
-    } 
-};`
+    "code": `#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n; cin >> n;
+    long long prev2 = 0, prev = 0;
+    for (int i = 0; i < n; ++i) {
+        long long x; cin >> x;
+        long long cur = max(prev, prev2 + x);
+        prev2 = prev;
+        prev = cur;
+    }
+    cout << prev << '\n';
+    return 0;
+}`
   }
 ];

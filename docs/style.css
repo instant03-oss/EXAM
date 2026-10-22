@@ -723,6 +723,41 @@ body {
   white-space: pre-line;
 }
 
+/* HackerRank Input Format Display */
+.input-format-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-left: 3px solid #818cf8;
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.95rem;
+  margin-bottom: 1.15rem;
+  font-size: 0.85rem;
+  backdrop-filter: blur(8px);
+}
+
+.input-format-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 700;
+  color: #818cf8;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.input-format-text {
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.825rem;
+  word-break: break-word;
+}
+
+
 .complexity-pills {
   display: flex;
   align-items: center;

@@ -1,0 +1,355 @@
+Competitive Programming Practicals — HackerRank Style
+Converted from the supplied CP Practicals.docx. Each solution is a standalone C++17 program with main(), standard input (cin/getline), and standard output (cout), rather than a LeetCode class-only solution. Input formats are stated before each code. For HackerRank, follow the exact input format specified by the problem statement if it differs.
+Prac1.1: Factorial of Trailing Zeroes
+Input: one integer n.
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    long long n;
+    cin >> n;
+    long long ans = 0;
+    while (n > 0) {
+        n /= 5;
+        ans += n;
+    }
+    cout << ans << '\n';
+    return 0;
+}
+Prac1.2: Extended Euclidean Distance (GCD)
+Input: two integers a and b. Output: gcd(a,b).
+#include <bits/stdc++.h>
+using namespace std;
+long long extendedGCD(long long a, long long b, long long &x, long long &y) {
+    if (b == 0) { x = 1; y = 0; return a; }
+    long long x1, y1;
+    long long g = extendedGCD(b, a % b, x1, y1);
+    x = y1;
+    y = x1 - (a / b) * y1;
+    return g;
+}
+int main() {
+    long long a, b, x, y;
+    cin >> a >> b;
+    long long g = extendedGCD(llabs(a), llabs(b), x, y);
+    cout << g << '\n';
+    return 0;
+}
+Prac1.3: Missing Number
+Input: n followed by n distinct integers from 0 to n, with one missing.
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n; cin >> n;
+    int xr = 0, x;
+    for (int i = 0; i <= n; ++i) xr ^= i;
+    for (int i = 0; i < n; ++i) { cin >> x; xr ^= x; }
+    cout << xr << '\n';
+    return 0;
+}
+Prac1.4: Single Number III
+Input: n followed by n integers; exactly two values occur once and others occur twice.
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n; cin >> n;
+    vector<int> nums(n);
+    long long xr = 0;
+    for (int &v : nums) { cin >> v; xr ^= v; }
+    long long diff = xr & -xr, x = 0, y = 0;
+    for (int v : nums) {
+        if (v & diff) x ^= v;
+        else y ^= v;
+    }
+    if (x > y) swap(x, y);
+    cout << x << ' ' << y << '\n';
+    return 0;
+}
+Prac2.1: Subsets
+Input: n followed by n integers. Prints every subset on a separate line in bitmask order ([], [1], [2], [1 2], [3], ...); the empty subset prints as an empty line.
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n; cin >> n;
+    vector<int> a(n);
+    for (int &x : a) cin >> x;
+    // Subsets in bitmask order: [], [1], [2], [1 2], [3], [1 3], [2 3], [1 2 3]
+    for (long long mask = 0; mask < (1LL << n); ++mask) {
+        bool first = true;
+        for (int j = 0; j < n; ++j) {
+            if (mask >> j & 1) {
+                if (!first) cout << ' ';
+                cout << a[j];
+                first = false;
+            }
+        }
+        cout << '\n';
+    }
+    return 0;
+}
+Prac2.2: Permutations
+Input: n followed by n distinct integers. Prints each permutation on a separate line.
+#include <bits/stdc++.h>
+using namespace std;
+vector<int> a, cur;
+vector<bool> used;
+void generate() {
+    if (cur.size() == a.size()) {
+        for (int i = 0; i < (int)cur.size(); ++i) {
+            if (i) cout << ' ';
+            cout << cur[i];
+        }
+        cout << '\n';
+        return;
+    }
+    for (int i = 0; i < (int)a.size(); ++i) {
+        if (!used[i]) {
+            used[i] = true; cur.push_back(a[i]);
+            generate();
+            cur.pop_back(); used[i] = false;
+        }
+    }
+}
+int main() {
+    int n; cin >> n;
+    a.resize(n); used.assign(n, false);
+    for (int &x : a) cin >> x;
+    generate();
+    return 0;
+}
+Prac3.1: Asteroid Collision
+Input: n followed by n signed asteroid sizes.
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n; cin >> n;
+    vector<int> a(n), st;
+    for (int &x : a) cin >> x;
+    for (int x : a) {
+        bool alive = true;
+        while (alive && x < 0 && !st.empty() && st.back() > 0) {
+            if (abs(st.back()) < abs(x)) st.pop_back();
+            else if (abs(st.back()) == abs(x)) { st.pop_back(); alive = false; }
+            else alive = false;
+        }
+        if (alive) st.push_back(x);
+    }
+    for (int i = 0; i < (int)st.size(); ++i) {
+        if (i) cout << ' ';
+        cout << st[i];
+    }
+    cout << '\n';
+    return 0;
+}
+Prac3.2: Trapping Rainwater
+Input: n followed by n non-negative heights.
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n; cin >> n;
+    vector<long long> h(n);
+    for (auto &x : h) cin >> x;
+    if (n < 3) { cout << 0 << '\n'; return 0; }
+    int l = 0, r = n - 1;
+    long long leftMax = 0, rightMax = 0, water = 0;
+    while (l < r) {
+        if (h[l] < h[r]) {
+            leftMax = max(leftMax, h[l]);
+            water += leftMax - h[l++];
+        } else {
+            rightMax = max(rightMax, h[r]);
+            water += rightMax - h[r--];
+        }
+    }
+    cout << water << '\n';
+    return 0;
+}
+Prac4.1: Sort Vowels in a String
+Input: one full line string.
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    string s; getline(cin, s);
+    if (!s.empty() && s.back() == '\r') s.pop_back();
+    string order = "AEIOUaeiou";
+    vector<int> freq(256, 0);
+    vector<bool> vowel(256, false);
+    for (char c : order) vowel[(unsigned char)c] = true;
+    for (unsigned char c : s) if (vowel[c]) freq[c]++;
+    int pos = 0;
+    for (char &c : s) {
+        unsigned char uc = (unsigned char)c;
+        if (vowel[uc]) {
+            while (pos < (int)order.size() && freq[(unsigned char)order[pos]] == 0) pos++;
+            c = order[pos];
+            freq[(unsigned char)order[pos]]--;
+        }
+    }
+    cout << s << '\n';
+    return 0;
+}
+Prac4.2: Wildcard Matching
+Input: string s on the first line and pattern p on the second line. '?' matches one character; '*' matches any sequence.
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    string s, p;
+    getline(cin, s); getline(cin, p);
+    if (!s.empty() && s.back() == '\r') s.pop_back();
+    if (!p.empty() && p.back() == '\r') p.pop_back();
+    int i = 0, j = 0, star = -1, match = 0;
+    while (i < (int)s.size()) {
+        if (j < (int)p.size() && (p[j] == '?' || p[j] == s[i])) { i++; j++; }
+        else if (j < (int)p.size() && p[j] == '*') { star = j; match = i; j++; }
+        else if (star != -1) { j = star + 1; i = ++match; }
+        else { cout << "false\n"; return 0; }
+    }
+    while (j < (int)p.size() && p[j] == '*') j++;
+    cout << (j == (int)p.size() ? "true" : "false") << '\n';
+    return 0;
+}
+Prac4.3: Longest Awesome Substring
+Input: a string containing digits 0–9.
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    string s; cin >> s;
+    vector<int> first(1 << 10, (int)s.size() + 1);
+    first[0] = -1;
+    int mask = 0, ans = 0;
+    for (int i = 0; i < (int)s.size(); ++i) {
+        mask ^= 1 << (s[i] - '0');
+        ans = max(ans, i - first[mask]);
+        for (int b = 0; b < 10; ++b)
+            ans = max(ans, i - first[mask ^ (1 << b)]);
+        first[mask] = min(first[mask], i);
+    }
+    cout << ans << '\n';
+    return 0;
+}
+Prac5.1: Daily Temperatures
+Input: n followed by n temperatures.
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n; cin >> n;
+    vector<int> t(n), ans(n, 0), st;
+    for (int &x : t) cin >> x;
+    for (int i = 0; i < n; ++i) {
+        while (!st.empty() && t[i] > t[st.back()]) {
+            ans[st.back()] = i - st.back();
+            st.pop_back();
+        }
+        st.push_back(i);
+    }
+    for (int i = 0; i < n; ++i) {
+        if (i) cout << ' ';
+        cout << ans[i];
+    }
+    cout << '\n';
+    return 0;
+}
+Prac5.2: Defuse the Bomb
+Input: n k followed by n circular-array values.
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n, k; cin >> n >> k;
+    vector<long long> code(n), ans(n, 0);
+    for (auto &x : code) cin >> x;
+    if (k != 0) {
+        // window for index i: positions i+1..i+k (k>0) or i+k..i-1 (k<0), circular
+        long long sum = 0;
+        int a = abs(k);
+        for (int j = 1; j <= a; ++j) sum += code[((k > 0 ? j : -j) % n + n) % n];
+        for (int i = 0; i < n; ++i) {
+            ans[i] = sum;
+            int removeIdx, addIdx;
+            if (k > 0) { removeIdx = (i + 1) % n; addIdx = (i + k + 1) % n; }
+            else       { removeIdx = ((i + k) % n + n) % n; addIdx = i; }
+            sum -= code[removeIdx];
+            sum += code[addIdx];
+        }
+    }
+    for (int i = 0; i < n; ++i) cout << (i ? " " : "") << ans[i];
+    cout << '\n';
+    return 0;
+}
+Prac6.1: Number of Provinces
+Input: n followed by an n x n adjacency matrix.
+#include <bits/stdc++.h>
+using namespace std;
+void dfs(int u, vector<vector<int>>& g, vector<bool>& seen) {
+    seen[u] = true;
+    for (int v = 0; v < (int)g.size(); ++v)
+        if (g[u][v] && !seen[v]) dfs(v, g, seen);
+}
+int main() {
+    int n; cin >> n;
+    vector<vector<int>> g(n, vector<int>(n));
+    for (auto &row : g) for (int &x : row) cin >> x;
+    vector<bool> seen(n, false);
+    int provinces = 0;
+    for (int i = 0; i < n; ++i)
+        if (!seen[i]) { provinces++; dfs(i, g, seen); }
+    cout << provinces << '\n';
+    return 0;
+}
+Prac6.2: Course Schedule
+Input: number of courses n, number of prerequisite pairs m, then m pairs (course prerequisite).
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n, m; cin >> n >> m;
+    vector<vector<int>> adj(n);
+    vector<int> indeg(n, 0);
+    for (int i = 0; i < m; ++i) {
+        int course, prerequisite; cin >> course >> prerequisite;
+        adj[prerequisite].push_back(course);
+        indeg[course]++;
+    }
+    queue<int> q;
+    for (int i = 0; i < n; ++i) if (indeg[i] == 0) q.push(i);
+    int done = 0;
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        done++;
+        for (int v : adj[u]) if (--indeg[v] == 0) q.push(v);
+    }
+    cout << (done == n ? "true" : "false") << '\n';
+    return 0;
+}
+Prac7.1: Champagne Tower
+Input: poured query_row query_glass.
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int poured, query_row, query_glass;
+    cin >> poured >> query_row >> query_glass;
+    vector<double> dp(query_row + 2, 0.0);
+    dp[0] = poured;
+    for (int row = 0; row < query_row; ++row) {
+        for (int j = row; j >= 0; --j) {
+            double excess = max(0.0, (dp[j] - 1.0) / 2.0);
+            dp[j] = excess;
+            dp[j + 1] += excess;
+        }
+    }
+    cout << fixed << setprecision(6) << min(1.0, dp[query_glass]) << '\n';
+    return 0;
+}
+Prac7.2: House Robber
+Input: n followed by n non-negative house values.
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n; cin >> n;
+    long long prev2 = 0, prev = 0;
+    for (int i = 0; i < n; ++i) {
+        long long x; cin >> x;
+        long long cur = max(prev, prev2 + x);
+        prev2 = prev;
+        prev = cur;
+    }
+    cout << prev << '\n';
+    return 0;
+}

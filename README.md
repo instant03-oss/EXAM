@@ -1,47 +1,48 @@
-# 🚀 Competitive Programming Laboratory Practicals
+# 🚀 Competitive Programming Laboratory Practicals (HackerRank Style)
 
-An interactive, modern static web platform converted directly from **`CP Practicals.pdf`**. Contains 17 algorithm solutions (Practicals 1.1 through 7.2) implemented in **C++** and **Java**, featuring time/space complexity analysis, one-click code copy, instant search, category filters, and an **in-browser interactive test runner**.
+An interactive, modern static web platform converted directly from **`CP Practicals.pdf`** and updated with **HackerRank-style standalone C++17 solutions** (`all_pages.txt`). Contains 17 algorithm solutions (Practicals 1.1 through 7.2) implemented with `main()`, standard stream I/O (`cin` / `cout`), explicit input format specifications, time/space complexity analysis, one-click code copy, instant search, category filters, and an **in-browser interactive test runner**.
 
 ![GitHub Pages Deployment](https://img.shields.io/badge/Deployment-GitHub%20Pages-success?style=for-the-badge&logo=github)
-![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
-![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![C++17](https://img.shields.io/badge/C++17-Standalone-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
+![HackerRank Style](https://img.shields.io/badge/Style-HackerRank%20Ready-00EA64?style=for-the-badge&logo=hackerrank&logoColor=black)
 ![LeetCode](https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=black)
 
 ---
 
 ## 🌟 Key Features
 
+- **⚡ HackerRank & Exam Ready**: Every solution is a standalone C++17 program with `main()`, `#include <bits/stdc++.h>`, `cin >>`, and `cout <<`—ready to copy-paste into competitive coding portals or compile directly.
+- **📥 Explicit Input Formats**: Clear specification of required input formatting directly on each card and code header.
 - **🎨 Modern Glassmorphism UI**: High-contrast dark mode default with sleek light mode toggle, responsive layout, smooth micro-interactions.
-- **⚡ Instant Filter & Search**: Search by practical ID (`1.1`), problem title, topic, or LeetCode number with keyboard shortcut `/` or `Ctrl+K`.
-- **💻 Syntax Highlighted Code Viewer**: Clean code blocks with line numbers and one-click copy with animated feedback.
+- **⚡ Instant Filter & Search**: Search by practical ID (`1.1`), problem title, topic, or LeetCode number with keyboard shortcut `/`.
+- **💻 Syntax Highlighted Code Viewer**: Clean C++ code blocks with line highlighting and one-click copy with animated feedback.
 - **🧪 Interactive Algorithm Playground**: Test algorithms with custom inputs directly in the browser and trace execution step-by-step.
 - **📑 Table of Contents Sidebar**: Quick jump navigation with real-time active scroll-spy indicator.
-- **📄 Original Document Link**: Built-in download button for the original `CP Practicals.pdf`.
 - **🚀 Ready for GitHub Pages**: Automatic CI/CD deployment via GitHub Actions (`.github/workflows/deploy.yml`) as well as compatibility with the `/docs` folder.
 
 ---
 
 ## 📋 Comprehensive Problem Directory
 
-| Practical | Problem Title | LeetCode | Topic / Category | Language | Complexity |
+| Practical | Problem Title | LeetCode | Topic / Category | Style | Complexity |
 | :---: | :--- | :---: | :--- | :---: | :---: |
-| **Prac 1.1** | [Factorial of Trailing Zeroes](https://leetcode.com/problems/factorial-trailing-zeroes/) | #172 | Math & Number Theory | Java | $O(\log_5 n)$ time, $O(1)$ space |
-| **Prac 1.2** | Extended Euclidean Distance | Bézout | Math & Number Theory | C++ | $O(\log(\min(a, b)))$ time |
-| **Prac 1.3** | [Missing Number](https://leetcode.com/problems/missing-number/) | #268 | Bit Manipulation | C++ | $O(n)$ time, $O(1)$ space |
-| **Prac 1.4** | [Single Number III](https://leetcode.com/problems/single-number-iii/) | #260 | Bit Manipulation | C++ | $O(n)$ time, $O(1)$ space |
-| **Prac 2.1** | [Subsets](https://leetcode.com/problems/subsets/) | #78 | Recursion & Backtracking | C++ | $O(2^n)$ time, $O(n)$ space |
-| **Prac 2.2** | [Permutations](https://leetcode.com/problems/permutations/) | #46 | Recursion & Backtracking | C++ | $O(n \cdot n!)$ time, $O(n)$ space |
-| **Prac 3.1** | [Asteroid Collision](https://leetcode.com/problems/asteroid-collision/) | #735 | Stack & Monotonic Queue | C++ | $O(n)$ time, $O(n)$ space |
-| **Prac 3.2** | [Trapping Rainwater](https://leetcode.com/problems/trapping-rain-water/) | #42 | Stack & Monotonic Queue | C++ | $O(n)$ time, $O(1)$ space |
-| **Prac 4.1** | [Sort Vowels in a String](https://leetcode.com/problems/sort-vowels-in-a-string/) | #2785 | Strings & Pattern Matching | C++ | $O(n)$ time, $O(1)$ space |
-| **Prac 4.2** | [Wildcard Matching](https://leetcode.com/problems/wildcard-matching/) | #44 | Strings & Pattern Matching | C++ | $O(s \cdot p)$ time, $O(1)$ space |
-| **Prac 4.3** | [Longest Awesome Substring](https://leetcode.com/problems/longest-awesome-substring/) | #1542 | Bit Manipulation | C++ | $O(10 \cdot n)$ time, $O(1024)$ space |
-| **Prac 5.1** | [Daily Temperatures](https://leetcode.com/problems/daily-temperatures/) | #739 | Stack & Monotonic Queue | C++ | $O(n)$ time, $O(1)$ space |
-| **Prac 5.2** | [Defuse the Bomb](https://leetcode.com/problems/defuse-the-bomb/) | #1652 | Two Pointers & Sliding Window | Java | $O(n)$ time, $O(n)$ space |
-| **Prac 6.1** | [Number of Provinces](https://leetcode.com/problems/number-of-provinces/) | #547 | Graph Theory & BFS/DFS | Java | $O(n^2)$ time, $O(n)$ space |
-| **Prac 6.2** | [Course Schedule](https://leetcode.com/problems/course-schedule/) | #207 | Graph Theory & BFS/DFS | C++ | $O(V + E)$ time, $O(V + E)$ space |
-| **Prac 7.1** | [Champagne Tower](https://leetcode.com/problems/champagne-tower/) | #799 | Dynamic Programming | Java | $O(\text{row}^2)$ time, $O(\text{row})$ space |
-| **Prac 7.2** | [House Robber](https://leetcode.com/problems/house-robber/) | #198 | Dynamic Programming | C++ | $O(n)$ time, $O(1)$ space |
+| **Prac 1.1** | [Factorial of Trailing Zeroes](https://leetcode.com/problems/factorial-trailing-zeroes/) | #172 | Math & Number Theory | C++17 Standalone | $O(\log_5 n)$ time, $O(1)$ space |
+| **Prac 1.2** | Extended Euclidean Distance (GCD) | Bézout | Math & Number Theory | C++17 Standalone | $O(\log(\min(a, b)))$ time |
+| **Prac 1.3** | [Missing Number](https://leetcode.com/problems/missing-number/) | #268 | Bit Manipulation | C++17 Standalone | $O(n)$ time, $O(1)$ space |
+| **Prac 1.4** | [Single Number III](https://leetcode.com/problems/single-number-iii/) | #260 | Bit Manipulation | C++17 Standalone | $O(n)$ time, $O(1)$ space |
+| **Prac 2.1** | [Subsets](https://leetcode.com/problems/subsets/) | #78 | Recursion & Backtracking | C++17 Standalone | $O(2^n)$ time, $O(n)$ space |
+| **Prac 2.2** | [Permutations](https://leetcode.com/problems/permutations/) | #46 | Recursion & Backtracking | C++17 Standalone | $O(n \cdot n!)$ time, $O(n)$ space |
+| **Prac 3.1** | [Asteroid Collision](https://leetcode.com/problems/asteroid-collision/) | #735 | Stack & Monotonic Queue | C++17 Standalone | $O(n)$ time, $O(n)$ space |
+| **Prac 3.2** | [Trapping Rainwater](https://leetcode.com/problems/trapping-rain-water/) | #42 | Stack & Monotonic Queue | C++17 Standalone | $O(n)$ time, $O(1)$ space |
+| **Prac 4.1** | [Sort Vowels in a String](https://leetcode.com/problems/sort-vowels-in-a-string/) | #2785 | Strings & Pattern Matching | C++17 Standalone | $O(n)$ time, $O(1)$ space |
+| **Prac 4.2** | [Wildcard Matching](https://leetcode.com/problems/wildcard-matching/) | #44 | Strings & Pattern Matching | C++17 Standalone | $O(s \cdot p)$ time, $O(1)$ space |
+| **Prac 4.3** | [Longest Awesome Substring](https://leetcode.com/problems/longest-awesome-substring/) | #1542 | Bit Manipulation | C++17 Standalone | $O(10 \cdot n)$ time, $O(1024)$ space |
+| **Prac 5.1** | [Daily Temperatures](https://leetcode.com/problems/daily-temperatures/) | #739 | Stack & Monotonic Queue | C++17 Standalone | $O(n)$ time, $O(1)$ space |
+| **Prac 5.2** | [Defuse the Bomb](https://leetcode.com/problems/defuse-the-bomb/) | #1652 | Two Pointers & Sliding Window | C++17 Standalone | $O(n)$ time, $O(n)$ space |
+| **Prac 6.1** | [Number of Provinces](https://leetcode.com/problems/number-of-provinces/) | #547 | Graph Theory & BFS/DFS | C++17 Standalone | $O(n^2)$ time, $O(n)$ space |
+| **Prac 6.2** | [Course Schedule](https://leetcode.com/problems/course-schedule/) | #207 | Graph Theory & BFS/DFS | C++17 Standalone | $O(V + E)$ time, $O(V + E)$ space |
+| **Prac 7.1** | [Champagne Tower](https://leetcode.com/problems/champagne-tower/) | #799 | Dynamic Programming | C++17 Standalone | $O(\text{row}^2)$ time, $O(\text{row})$ space |
+| **Prac 7.2** | [House Robber](https://leetcode.com/problems/house-robber/) | #198 | Dynamic Programming | C++17 Standalone | $O(n)$ time, $O(1)$ space | | $O(n)$ time, $O(1)$ space |
 
 ---
 

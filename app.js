@@ -51,9 +51,17 @@ document.addEventListener('DOMContentLoaded', () => {
       .replace(/>/g, '&gt;');
 
     // Keywords
-    const keywords = ['class', 'public', 'private', 'protected', 'int', 'long', 'void', 'bool', 'boolean', 'double', 'float', 'char', 'string', 'vector', 'stack', 'return', 'if', 'else', 'while', 'for', 'auto', 'true', 'false', 'new'];
+    const keywords = [
+      'class', 'public', 'private', 'protected', 'int', 'long', 'void', 'bool', 'boolean', 'double', 'float', 'char', 'string',
+      'vector', 'stack', 'return', 'if', 'else', 'while', 'for', 'auto', 'true', 'false', 'new', 'using', 'namespace', 'std',
+      'cin', 'cout', 'getline', 'swap', 'abs', 'max', 'min', 'resize', 'assign', 'push_back', 'pop_back', 'empty', 'back', 'size',
+      'fixed', 'setprecision'
+    ];
     const kwRegex = new RegExp(`\\b(${keywords.join('|')})\\b`, 'g');
     escaped = escaped.replace(kwRegex, '<span class="code-keyword">$1</span>');
+
+    // Preprocessor directives like #include <bits/stdc++.h>
+    escaped = escaped.replace(/(#include\s+&lt;[^&]+&gt;)/g, '<span class="code-function">$1</span>');
 
     // Numbers
     escaped = escaped.replace(/\b(\d+)\b/g, '<span class="code-number">$1</span>');
@@ -94,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <span class="badge badge-id">Prac ${p.id}</span>
               <span class="badge badge-category">${p.category}</span>
               <span class="badge ${diffClass}">${p.difficulty}</span>
-              <span class="badge ${langClass}">${p.lang.toUpperCase()}</span>
+              <span class="badge ${langClass}">${p.lang.toUpperCase()}17</span>
             </div>
             <h2 class="card-title">${p.title}</h2>
           </div>
@@ -105,6 +113,13 @@ document.addEventListener('DOMContentLoaded', () => {
         </header>
 
         <p class="problem-desc">${p.description}</p>
+
+        ${p.inputFormat ? `
+        <div class="input-format-box">
+          <span class="input-format-label">📥 HackerRank Input:</span>
+          <span class="input-format-text">${p.inputFormat}</span>
+        </div>
+        ` : ''}
 
         <div class="complexity-pills">
           <div class="complexity-item">
@@ -130,9 +145,9 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="tab-content-code" id="${cardId}-code">
           <div class="code-wrapper">
             <div class="code-header">
-              <span class="code-lang-label">${p.lang === 'cpp' ? 'C++ (Standard STL)' : 'Java'}</span>
+              <span class="code-lang-label">⚡ C++17 Standalone (HackerRank Ready)</span>
               <button class="copy-btn" data-code="${encodeURIComponent(p.code)}">
-                <span>📋 Copy Code</span>
+                <span>📋 Copy C++ Code</span>
               </button>
             </div>
             <pre class="code-block"><code>${highlightCode(p.code, p.lang)}</code></pre>
@@ -227,18 +242,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Attach card event listeners
   function attachCardListeners() {
-    // Copy button
+    // Copy button with robust fallback
     document.querySelectorAll('.copy-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener('click', () => {
         const rawCode = decodeURIComponent(btn.getAttribute('data-code'));
-        navigator.clipboard.writeText(rawCode).then(() => {
+        function copyText(text) {
+          if (navigator.clipboard && window.isSecureContext) {
+            return navigator.clipboard.writeText(text);
+          } else {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.focus();
+            ta.select();
+            return new Promise((resolve, reject) => {
+              try {
+                document.execCommand('copy') ? resolve() : reject(new Error('execCommand copy failed'));
+              } catch (err) {
+                reject(err);
+              } finally {
+                document.body.removeChild(ta);
+              }
+            });
+          }
+        }
+
+        copyText(rawCode).then(() => {
           const original = btn.innerHTML;
-          btn.innerHTML = '<span>✅ Copied!</span>';
+          btn.innerHTML = '<span>✅ Copied C++ Code!</span>';
           btn.style.borderColor = '#10b981';
+          btn.style.color = '#10b981';
           setTimeout(() => {
             btn.innerHTML = original;
             btn.style.borderColor = '';
+            btn.style.color = '';
           }, 2000);
+        }).catch(err => {
+          console.error('Copy failed:', err);
         });
       });
     });
